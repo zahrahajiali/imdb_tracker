@@ -4,7 +4,7 @@ import http from "../base";
 
 //#region get post
 
-interface MovieInterface {
+export interface MovieInterface {
   Title: string;
   Year: string;
   Rated: string;
@@ -31,25 +31,28 @@ interface MovieInterface {
   Website: string;
   Response: string;
 }
-export const getMovies = ({ title, date }: { title: string; date: string }) => {
+
+interface GetMovieParams {
+  t?: string;
+  y?: string;
+}
+
+export const getMovies = (params?: GetMovieParams) => {
   return http<MovieInterface>({
     method: "GET",
-    url: `?t=${title}&y=${date}`,
+    params: {
+      t: params?.t,
+      y: params?.y,
+    },
   });
 };
 
-export const useGetMovies = ({
-  title,
-  date,
-}: {
-  title: string;
-  date: string;
-}) => {
+export const useGetMovies = (params?: GetMovieParams) => {
   return useQuery({
-    queryKey: ["getPostKey", title, date],
+    queryKey: ["getPostKey", params?.t, params?.y],
     staleTime: 0,
     queryFn: () => {
-      return getMovies({ title, date }).then((res) => {
+      return getMovies(params).then((res) => {
         return res.data;
       });
     },
