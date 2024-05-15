@@ -17,10 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
       <body className={inter.className}>
         <ReactQueryClientProvider>
-          <header className="p-[1rem] bg-[#3a3a3a] flex items-center justify-end">
+          <header className="w-[100%] p-[1rem] bg-[#3a3a3a] flex items-center">
             <Navigation />
           </header>
 
