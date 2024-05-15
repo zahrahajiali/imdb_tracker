@@ -50,7 +50,6 @@ export const getMovies = (params?: GetMovieParams) => {
 export const useGetMovies = (params?: GetMovieParams) => {
   return useQuery({
     queryKey: ["getPostKey", params?.t, params?.y],
-    staleTime: 0,
     queryFn: () => {
       return getMovies(params).then((res) => {
         return res.data;

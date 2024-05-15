@@ -2,13 +2,17 @@
 import { useGetMovies } from "@/services/movies/index";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useDebounce } from "@/hook/common/useDebounce";
+
 export default function Home() {
   const [title, setTitle] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [fav, setFav] = useState<boolean>(false);
+  const titleDebounce = useDebounce<string>(title, 500);
+  const dateDebounce = useDebounce<string>(title, 500);
   const { data } = useGetMovies({
-    t: title,
-    y: date,
+    t: titleDebounce,
+    y: dateDebounce,
   });
 
   //#region input handler
